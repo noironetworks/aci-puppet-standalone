@@ -1,0 +1,6 @@
+Copy the gbp directory to /etc/puppet/modules
+Copy the hieradata directory to where hiera is pointing to
+Edir the defaults.yaml in hieradata with the correct values
+cd puppet-template
+./mudule.sh
+puppet apply site.pp -v -d
