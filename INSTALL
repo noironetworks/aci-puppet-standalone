@@ -7,7 +7,7 @@ puppet apply site.pp -v -d
 
 Repeat above for all nodes
 
-Once the puppet classe on controller completes, add the switch config as shown below to the ml2_config_cisco_apic.ini.
+Once the puppet run on controller completes, add the switch config as shown below to the ml2_config_cisco_apic.ini.
 Add "--config-file /etc/neutron/plugins/ml2/ml2_config_cisco_apic.ini" to the sysVinit,upstart,systemd file (as
 recommended by the distro) and restart neutrn.
 
