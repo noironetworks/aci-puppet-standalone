@@ -10,10 +10,3 @@ Limitations (all on roadmap)
     Does not generate yum/apt/zypper repo files
     Requires hiera
 
-
-
-[apic_switch:101]
-jhency-aci1 = 1/1
-
-[apic_switch:103]
-jhency-aci3 = 1/1
