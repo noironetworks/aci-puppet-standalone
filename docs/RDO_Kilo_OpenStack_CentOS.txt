@@ -1,0 +1,60 @@
+The main QuickStart guide is available at https://www.rdoproject.org/install/quickstart/
+
+In this quick start there is link to Kilo repo where it says "Looking for an older version? See http://rdoproject.org/repos/ for the full listing"
+
+I am putting basic steps to get the kilo going on CentOS. These are for CentOS. For RHEL it is better to get these repo's using subscription-manager
+if you need I can send you instructions for using RedHat RHEL subscription manager. 
+
+### Install CentOS 7.1 on All (Controller, compute, etc) 
+
+
+### stop NetworkManager on both controller and compute node
+service NetworkManager stop
+chkconfig NetworkManager off
+
+### enable simple network
+chkconfig network on
+
+Here you may need to fix the interface file for you management ethernet interface, for example
+
+vi /etc/sysconfig/network-scripts/ifcfg-ens9
+DEVICE=ens9
+NAME=ens9
+IPADDR= 172.31.185.30
+NETMASK=255.255.252.0
+GATEWAY=172.31.184.1
+DNS1=173.36.131.10
+DNS2=171.70.168.183
+
+service network restart (or reboot to make sure interface comes up)
+
+## install kilo rdo-release repo
+yum install https://repos.fedorapeople.org/repos/openstack/openstack-kilo/rdo-release-kilo-1.noarch.rpm
+
+### install openstack-packstack (from here to end all instructions are to be done only on controller node)
+yum install openstack-packstack
+
+###  generate & modify answer file
+
+[root@localhost ~]# packstack --help
+Usage: packstack [options] [--help]
+
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  --gen-answer-file=GEN_ANSWER_FILE
+                        Generate a template of an answer file.
+
+packstack --gen-answer-file=our_answer_file.txt
+
+### modify answer file
+CONFIG_CINDER_INSTALL=n (set it to 'y' if you want Cinder)
+CONFIG_NAGIOS_INSTALL=n
+CONFIG_KEYSTONE_ADMIN_PW=cisco123
+CONFIG_COMPUTE_HOSTS=172.31.185.31,172.31.185.32 (Put all IP's that you want compute to be installed)
+ENABLE_EPEL=y
+
+### install openstack
+packstack --answer-file=minako_answer-file_standalone
+
+Above command will ask for passwords to other nodes and install openstack on all of them, it should be ready if no errors.
