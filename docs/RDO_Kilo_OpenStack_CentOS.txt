@@ -1,9 +1,8 @@
 The main QuickStart guide is available at https://www.rdoproject.org/install/quickstart/
 
-In this quick start there is link to Kilo repo where it says "Looking for an older version? See http://rdoproject.org/repos/ for the full listing"
+In this quick start there is link to older repos where it says "Looking for an older version? See http://rdoproject.org/repos/ for the full listing"
 
-I am putting basic steps to get the kilo going on CentOS. These are for CentOS. For RHEL it is better to get these repo's using subscription-manager
-if you need I can send you instructions for using RedHat RHEL subscription manager. 
+I am putting basic steps to get the liberty going on CentOS. These are for CentOS. For RHEL it is better to get these repo's using subscription-manager
 
 ### Install CentOS 7.1 on All (Controller, compute, etc) 
 
@@ -15,7 +14,7 @@ chkconfig NetworkManager off
 ### enable simple network
 chkconfig network on
 
-Here you may need to fix the interface file for you management ethernet interface, for example
+Here you may need to fix the interface file for your management ethernet interface, for example
 
 vi /etc/sysconfig/network-scripts/ifcfg-ens9
 DEVICE=ens9
@@ -28,8 +27,8 @@ DNS2=171.70.168.183
 
 service network restart (or reboot to make sure interface comes up)
 
-## install kilo rdo-release repo
-yum install https://repos.fedorapeople.org/repos/openstack/openstack-kilo/rdo-release-kilo-1.noarch.rpm
+## install liberty rdo-release repo
+yum install https://repos.fedorapeople.org/repos/openstack/openstack-liberty/rdo-release-liberty-1.noarch.rpm
 
 ### install openstack-packstack (from here to end all instructions are to be done only on controller node)
 yum install openstack-packstack

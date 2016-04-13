@@ -1,5 +1,5 @@
 For RDO (other distro to come soon)
-1) Install RDO (a simple version of instalation doc RDO_Kilo_OpenStack_CentOS.txt is in te doc directory)
+1) Install RDO (a simple version of instalation doc RDO_Kilo_OpenStack_CentOS.txt is in the docs directory)
 2) Copy the gbp directory to /etc/puppet/modules
    cp -r gbp /etc/puppet/modules
 3) Copy the hieradata directory to where hiera is pointing to
