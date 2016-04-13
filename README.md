@@ -1,5 +1,5 @@
 # aci-puppet-standalone
-Puppet classes for installing and configuring opflex ACI neutron plugins
+Puppet classes for installing and configuring opflex ACI neutron plugins. Instructions are in INSTALL file and also in docs directory
 
 Limitations (all on roadmap)
 
