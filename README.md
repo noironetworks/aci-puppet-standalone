@@ -10,5 +10,5 @@ Limitations (all on roadmap)
     5. Generates config for agent-ovs as single file instead of overriding in conf.d
     6. Does not generate yum/apt/zypper repo files
     7. Requires hiera
-    8. Only create opflex interface files per CentOS/RedHat (/etc/sysconfig/network-scripts, /etc/dhccp)
+    8. Only create opflex interface files per CentOS/RedHat (/etc/sysconfig/network-scripts, /etc/dhcp)
 
