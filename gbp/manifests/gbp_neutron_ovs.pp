@@ -1,6 +1,6 @@
 class gbp::gbp_neutron_ovs() {
 
-  if hiera('CONFIG_APIC_OS_VERSION') == 'liberty' {
+  if hiera('CONFIG_APIC_OS_VERSION') != 'kilo' {
   $inifile = { 'path' => '/etc/neutron/plugins/ml2/openvswitch_agent.ini' }
   }
   else {
