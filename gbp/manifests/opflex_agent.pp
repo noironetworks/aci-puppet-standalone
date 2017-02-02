@@ -1,6 +1,6 @@
 class gbp::opflex_agent(
   $opflex_log_level = 'debug2',
-  $opflex_peer_ip = '10.0.0.30',
+  $opflex_peer_ip = hiera('CONFIG_OPFLEX_PEER_IP'),
   $opflex_peer_port = '8009',
   $opflex_ssl_mode = 'enabled',
   $opflex_endpoint_dir = '/var/lib/opflex-agent-ovs/endpoints',
@@ -9,7 +9,7 @@ class gbp::opflex_agent(
   $opflex_encap_iface = 'br-int_vxlan0',
   $opflex_uplink_iface = hiera('CONFIG_GBP_OPFLEX_UPLINK_INTERFACE'),
   $opflex_uplink_vlan = hiera('CONFIG_GBP_OPFLEX_UPLINK_VLAN'),
-  $opflex_remote_ip = '10.0.0.32',
+  $opflex_remote_ip = hiera('CONFIG_OPFLEX_REMOTE_IP'),
   $opflex_remote_port = '8472',
   $opflex_virtual_router = 'true',
   $opflex_router_advertisement = 'false',
