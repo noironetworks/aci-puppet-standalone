@@ -14,6 +14,10 @@ $myip = inline_template("<%= scope.lookupvar('::ipaddress_${myint}') -%>")
 if hiera('CONFIG_APIC_PLUGIN_MODE') == 'gbp' {
    $service_plugins = 'group_policy,servicechain,apic_gbp_l3'
 }
+elseif hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified'{
+   $service_plugins = 'cisco_aim_l3,group_policy,servicechain'
+   $core_plugin = 'ml2plus'
+}
 else {
    $service_plugins = 'cisco_apic_l3'
 }

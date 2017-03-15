@@ -34,7 +34,7 @@ class gbp() {
 
    if hiera('CONFIG_APIC_ROLE') == 'controller' {
        
-       if hiera('CONFIG_APIC_PLUGIN_MODE') == 'gbp' {
+       if hiera('CONFIG_APIC_PLUGIN_MODE') != 'gbp' {
 
            if !defined(Package['openstack-neutron-gbp']) {
               package {'openstack-neutron-gbp':
@@ -66,6 +66,39 @@ class gbp() {
               }
            }
        }
+       if hiera('CONFIG_APIC_PLUGIN_MODE') != 'unified' {
+
+           if !defined(Package['openstack-neutron-gbp']) {
+              package {'openstack-neutron-gbp':
+                 ensure => installed,
+              }
+           }
+
+           if !defined(Package['python-gbpclient']) {
+              package {'python-gbpclient':
+                 ensure => installed,
+              }
+           }
+
+           if !defined(Package['openstack-heat-gbp']) {
+              package {'openstack-heat-gbp':
+                 ensure => installed,
+              }
+           }
+
+           if !defined(Package['openstack-dashboard-gbp']) {
+              package {'openstack-dashboard-gbp':
+                 ensure => installed,
+              }
+           }
+
+           if !defined(Package['python-django-horizon-gbp']) {
+              package {'python-django-horizon-gbp':
+                 ensure => installed,
+              }
+           }
+       }
+
     }
     else {
     
