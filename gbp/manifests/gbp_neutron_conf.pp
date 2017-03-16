@@ -21,7 +21,7 @@ elsif hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified'{
 }
 else {
    $service_plugins = 'cisco_apic_l3'
-   $core_plugin = 'ml2p'
+   $core_plugin = 'ml2'
 }
 
 $inifile = { 'path' => '/etc/neutron/neutron.conf' }
