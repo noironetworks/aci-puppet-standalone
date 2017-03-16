@@ -10,26 +10,38 @@ class gbp::gbp_neutron_ml2_cisco(
 
 
 $inifile = { 'path' => '/etc/neutron/plugins/ml2/ml2_conf_cisco_apic.ini' }
-$params = {
-  'DEFAULT' => {
-    'apic_system_id'  => $apic_system_id
-   },
-   'opflex' => {
-    'networks' => '*'
-  },
-  'ml2_cisco_apic' => {
-    'vni_ranges' => '11000:11100',
-    'apic_hosts' => $apic_controller,
-    'apic_username' => $apic_username,
-    'apic_password' => $apic_password,
-    'apic_use_ssl' => True,
-    'apic_clear_node_profiles' => True,
-    'enable_aci_routing' => True,
-    'apic_arp_flooding' => True,
-    'apic_name_mapping' => 'use_name',
-    'enable_optimized_metadata' => 'True',
-    'apic_provision_infra' => $apic_provision_infra,
-    'apic_provision_hostlinks' => $apic_provision_hostlinks,
+
+if hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified' {
+    notify { "FT WILL DO UNIFIED": }
+   $params = {
+      'DEFAULT' => {
+        'apic_system_id'  => $apic_system_id
+    }
+  }   
+
+}
+else{
+    $params = {
+      'DEFAULT' => {
+        'apic_system_id'  => $apic_system_id
+       },
+       'opflex' => {
+        'networks' => '*'
+      },
+      'ml2_cisco_apic' => {
+        'vni_ranges' => '11000:11100',
+        'apic_hosts' => $apic_controller,
+        'apic_username' => $apic_username,
+        'apic_password' => $apic_password,
+        'apic_use_ssl' => True,
+        'apic_clear_node_profiles' => True,
+        'enable_aci_routing' => True,
+        'apic_arp_flooding' => True,
+        'apic_name_mapping' => 'use_name',
+        'enable_optimized_metadata' => 'True',
+        'apic_provision_infra' => $apic_provision_infra,
+        'apic_provision_hostlinks' => $apic_provision_hostlinks,
+       }
    }
 }
 create_ini_settings($params, $inifile)
@@ -44,8 +56,24 @@ if hiera('CONFIG_APIC_PLUGIN_MODE') == 'gbp' {
        'default_ip_pool' => '192.168.0.0/16'
      }
   }
+
   create_ini_settings($gbp_params, $inifile)
 }
+if hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified' {
+
+  $gbp_params = {
+     'group_policy' => {
+      'policy_drivers'  => 'aim-mapping',
+      'extension_drivers'  => 'aim_extension,proxy_group'
+      },
+     'group_policy_implicit_policy' => {
+       'default_ip_pool' => '192.168.0.0/16'
+     }
+  }
+
+  create_ini_settings($gbp_params, $inifile)
+}
+
 
 $sw_params = ""
 
@@ -79,27 +107,8 @@ $sw_params = ""
 
    if ($use_lldp == true) {
    } else {
-       notify { "use lldp diabled not supported yes": }
+       notify { "use lldp disbled not supported yes": }
        add_switch_conn_to_neutron_conf{'xyz': sa => $swarr, sw_params => $sw_params}
    }
 
-#   $extnet_arr = parsejson(hiera('CONFIG_APIC_EXTNET_JSON'))
-#
-#   define add_extnet_to_neutron_conf($na) {
-#      $extnets = keys($na)
-#      add_extnet_def { $extnets: netarr => $na}
-#   }
-#
-#   define add_extnet_def($netarr) {
-#     neutron_config {
-#        "apic_external_network:$name/switch": value => $netarr[$name]['switch'];
-#        "apic_external_network:$name/port": value => $netarr[$name]['port'];
-#        "apic_external_network:$name/encap": value => $netarr[$name]['encap'];
-#        "apic_external_network:$name/cidr_exposed": value => $netarr[$name]['cidr_exposed'];
-#        "apic_external_network:$name/gateway_ip": value => $netarr[$name]['gateway_ip'];
-#        "apic_external_network:$name/router_id": value => $netarr[$name]['router_id'];
-#     }
-#   }
-#
-#   add_extnet_to_neutron_conf{'abc': na => $extnet_arr}
 }

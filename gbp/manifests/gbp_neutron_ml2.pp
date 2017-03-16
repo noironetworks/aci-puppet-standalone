@@ -3,6 +3,9 @@ class gbp::gbp_neutron_ml2 () {
     if hiera('CONFIG_APIC_PLUGIN_MODE') == 'gbp' {
        $mech = 'apic_gbp'
     }
+    elsif hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified' {
+       $mech = 'apic_aim'
+    }
     else {
        $mech = 'cisco_apic_ml2'
     }

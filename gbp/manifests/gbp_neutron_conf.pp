@@ -13,6 +13,7 @@ $myip = inline_template("<%= scope.lookupvar('::ipaddress_${myint}') -%>")
 
 if hiera('CONFIG_APIC_PLUGIN_MODE') == 'gbp' {
    $service_plugins = 'group_policy,servicechain,apic_gbp_l3'
+   $core_plugin = 'ml2'
 }
 elsif hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified'{
    $service_plugins = 'cisco_aim_l3,group_policy,servicechain'
@@ -20,12 +21,14 @@ elsif hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified'{
 }
 else {
    $service_plugins = 'cisco_apic_l3'
+   $core_plugin = 'ml2p'
 }
 
 $inifile = { 'path' => '/etc/neutron/neutron.conf' }
 $params = {
   'DEFAULT' => {
     'service_plugins'  => $service_plugins,
+    'core_plugin'  => $core_plugin,
    }
   }
 create_ini_settings($params, $inifile)

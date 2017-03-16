@@ -68,6 +68,12 @@ class gbp() {
        }
        if hiera('CONFIG_APIC_PLUGIN_MODE') != 'unified' {
 
+           if !defined(Package['aci-integration-module']) {
+              package {'aci-integration-module':
+                 ensure => installed,
+              }
+           }
+
            if !defined(Package['openstack-neutron-gbp']) {
               package {'openstack-neutron-gbp':
                  ensure => installed,
