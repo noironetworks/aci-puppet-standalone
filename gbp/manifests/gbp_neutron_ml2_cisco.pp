@@ -17,7 +17,7 @@ if hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified' {
 #    notify { "FT WILL DO UNIFIED ${myip}": }
    $params = {
       'apic_aim_auth' => {
-        'auth_pugin'  => 'v3password',
+        'auth_plugin'  => 'v3password',
         'auth_url'  => "http://${myip}:35357/v3",
         'username' => 'admin',
         'password' => $admin_password,
