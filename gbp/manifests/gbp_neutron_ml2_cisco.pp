@@ -2,22 +2,33 @@ class gbp::gbp_neutron_ml2_cisco(
     $apic_username = hiera('CONFIG_APIC_USERNAME'),
     $apic_controller = hiera('CONFIG_APIC_CONTROLLER'),
     $apic_password = hiera('CONFIG_APIC_PW'),
+    $admin_password = hiera('CONFIG_ADMIN_PW'),
     $apic_system_id = hiera('CONFIG_APIC_SYSTEM_ID'),
     $apic_provision_infra = hiera('CONFIG_APIC_PROVISION_INFRA'),
     $apic_provision_hostlinks = hiera('CONFIG_APIC_PROVISION_HOSTLINKS'),
     $apic_vpc_pairs = hiera('CONFIG_APIC_VPC_PAIRS'),
+    $myint = hiera('CONFIG_GBP_MGMT_INTERFACE'),
 ) {
 
-
+$myip = inline_template("<%= scope.lookupvar('::ipaddress_${myint}') -%>")
 $inifile = { 'path' => '/etc/neutron/plugins/ml2/ml2_conf_cisco_apic.ini' }
 
 if hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified' {
-    notify { "FT WILL DO UNIFIED": }
+#    notify { "FT WILL DO UNIFIED ${myip}": }
    $params = {
-      'DEFAULT' => {
-        'apic_system_id'  => $apic_system_id
-    }
-  }   
+      'apic_aim_auth' => {
+        'auth_pugin'  => 'v3password',
+        'auth_url'  => "http://${myip}:35357/v3",
+        'username' => 'admin',
+        'password' => $admin_password,
+        'user_domain_name' => 'default',
+        'project_domain_name' => 'default',
+        'project_name'  => 'admin',
+        },
+      'ml2_apic_aim' => {
+        'enable_optimized_metadata' => 'True',
+        }
+      }
 
 }
 else{
@@ -103,7 +114,7 @@ $sw_params = ""
    }
     
    $use_lldp = hiera('CONFIG_GBP_USE_LLDP')
-   $swarr = parsejson(hiera('CONFIG_APIC_CONN_JSON'))
+   $swarr = "Junk"
 
    if ($use_lldp == true) {
    } else {

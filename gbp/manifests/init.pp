@@ -34,7 +34,7 @@ class gbp() {
 
    if hiera('CONFIG_APIC_ROLE') == 'controller' {
        
-       if hiera('CONFIG_APIC_PLUGIN_MODE') != 'gbp' {
+       if hiera('CONFIG_APIC_PLUGIN_MODE') != 'unified' {
 
            if !defined(Package['openstack-neutron-gbp']) {
               package {'openstack-neutron-gbp':
@@ -66,7 +66,7 @@ class gbp() {
               }
            }
        }
-       if hiera('CONFIG_APIC_PLUGIN_MODE') != 'unified' {
+       else {
 
            if !defined(Package['aci-integration-module']) {
               package {'aci-integration-module':
