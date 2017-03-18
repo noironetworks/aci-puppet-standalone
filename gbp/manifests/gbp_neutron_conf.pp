@@ -16,7 +16,7 @@ if hiera('CONFIG_APIC_PLUGIN_MODE') == 'gbp' {
    $core_plugin = 'ml2'
 }
 elsif hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified'{
-   $service_plugins = 'cisco_aim_l3,group_policy,servicechain'
+   $service_plugins = 'apic_aim_l3,group_policy,servicechain'
    $core_plugin = 'ml2plus'
 }
 else {

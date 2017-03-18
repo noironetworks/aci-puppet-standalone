@@ -74,7 +74,7 @@ if hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified' {
 
   $gbp_params = {
      'group_policy' => {
-      'policy_drivers'  => 'aim-mapping',
+      'policy_drivers'  => 'aim_mapping',
       'extension_drivers'  => 'aim_extension,proxy_group'
       },
      'group_policy_implicit_policy' => {
