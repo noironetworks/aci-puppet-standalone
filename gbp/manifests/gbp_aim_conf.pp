@@ -78,4 +78,14 @@ $myip = inline_template("<%= scope.lookupvar('::ipaddress_${myint}') -%>")
     }
      create_ini_settings($params2, $inifile2)
 
+   service {'aim-aid':
+     enable => true,
+   }      
+   service {'aim-event-service-polling':
+     enable => true,
+   }      
+   service {'aim-event-service-rpc':
+     enable => true,
+   }      
+
 }

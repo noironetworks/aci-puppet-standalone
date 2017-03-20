@@ -13,10 +13,13 @@ For RDO (other distro to come soon)
 5) Run puppet apply
    puppet apply site.pp -v -d
 6) Repeat above for all nodes
+7) For Unified mode run aim-init.sh
 
 Note: Once the puppet run on controller completes, add the switch config as shown below to the ml2_config_cisco_apic.ini.
 Add "--config-file /etc/neutron/plugins/ml2/ml2_config_cisco_apic.ini" to the sysVinit,upstart,systemd file (as
 recommended by the distro) and restart neutrn.
+
+Note: For unified mode, you will need to add the neutron database connection string and admin password to the hieradata/defaults.yaml
 
 [apic_switch:101]
 compute01 = 1/1

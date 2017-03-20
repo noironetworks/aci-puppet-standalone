@@ -22,11 +22,6 @@ class gbp::gbp_neutron_dhcp() {
       enable => false,
    }
 
-#   service {'neutron-openvswitch-agent':
-#      ensure => stopped,
-#      enable => false,
-#   }
-
    service {'neutron-metadata-agent':
       ensure => stopped,
       enable => false,
