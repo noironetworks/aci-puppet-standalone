@@ -21,8 +21,10 @@ if hiera('CONFIG_APIC_ROLE') == 'controller' {
     class { 'gbp::gbp_neutron_dhcp': 
       require => Class['gbp'],
     }
-    class { 'gbp::gbp_aim_conf': 
-      require => Class['gbp'],
+    if hiera('CONFIG_APIC_PLUGIN_MODE') == 'unified' {
+        class { 'gbp::gbp_aim_conf': 
+          require => Class['gbp'],
+        }
     }
 }
 else{
