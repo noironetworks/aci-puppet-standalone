@@ -8,6 +8,7 @@ class gbp::gbp_neutron_dhcp() {
       'DEFAULT' => {
         'ovs_integration_bridge'  => 'br-int',
         'enable_isolated_metadata'  => 'True'
+        'dhcp_driver'  => 'apic_ml2.neutron.agent.linux.apic_dhcp.ApicDnsmasq'
        }
     }
     create_ini_settings($params, $inifile)
